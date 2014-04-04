@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>CarODB</title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+    <script src="http://cdn.oesmith.co.uk/morris-0.4.3.min.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&"></script>
+    <script src="map.js"></script>
+    <link rel="stylesheet" href="http://cdn.oesmith.co.uk/morris-0.4.3.min.css">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        width: 100%;
+        margin: 0px;
+        padding: 0px
+      }
+      #map-canvas{
+        height: 40%;
+        width: 100%;
+        z-index: 10;
+        top:0px;
+        right:0px;
+        margin: 0px;
+        padding: 0px
+      }
+      .morris-hover{
+        z-index: 9
+      }
+    </style>
+  </head>
+  <body onload="init()">
+    <div id="map-canvas"></div>
+    <select id="select" onchange="getTrip(this.options[this.selectedIndex].value)"></select>
+    <div id="l100Instant" style="height: 200px; width: 100%"></div>
+    <div id="odbSpeed" style="height: 200px; width: 100%"></div>
+    <div id="engineRPM" style="height: 200px; width: 100%"></div>
+    <div id="engineLoad" style="height: 200px; width: 100%"></div>
+    <div id="throttlePosition" style="height: 200px; width: 100%"></div>
+    <div id="turboBoost" style="height: 200px; width: 100%"></div>
+    <div id="masseAirFlowRate" style="height: 200px; width: 100%"></div>
+    <div id="intakeManifold" style="height: 200px; width: 100%"></div>
+    <div id="intakeAirTemp" style="height: 200px; width: 100%"></div>
+    <div id="voltage" style="height: 200px; width: 100%"></div>
+  </body>
+</html>
