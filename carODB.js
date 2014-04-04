@@ -112,7 +112,9 @@ io.sockets.on('connection', function (socket){
 			if(err) throw err;
 			var collection = db.collection(date);
 			collection.find().toArray(function(err, items) {
-				socket.emit('drawTrip', items);
+				for (var i=0; i<items.length; i++) {
+					socket.emit('drawTrip', items[i]);
+				}
 			});
 		});
 
