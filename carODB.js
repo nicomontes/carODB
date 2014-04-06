@@ -4,10 +4,10 @@ var MongoClient = require('mongodb').MongoClient;
 
 var htmlIndex = fs.readFileSync(__dirname+'/index.html');
 var jsMap = fs.readFileSync(__dirname+'/map.js');
+var jsGraph = fs.readFileSync(__dirname+'/graph.js');
+var tsvData = fs.readFileSync(__dirname+'/data.tsv');
 
 var app = require('http').createServer(function (req, res) {
-
-	console.log(url.parse(req.url).pathname);
 
 	var page = url.parse(req.url).pathname;
 
@@ -73,6 +73,16 @@ var app = require('http').createServer(function (req, res) {
 		res.end(jsMap);
 	}
 
+	if (req.method=='GET' && page=='/data.tsv') {
+		res.writeHead(200, {'Content-Type': 'text'});
+		res.end(tsvData);
+	}
+
+	if (req.method=='GET' && page=='/graph.js') {
+		res.writeHead(200, {'Content-Type': 'text/javascript'});
+		res.end(jsGraph);
+	}
+
 });
 app.listen(8080);
 
@@ -115,6 +125,7 @@ io.sockets.on('connection', function (socket){
 				for (var i=0; i<items.length; i++) {
 					socket.emit('drawTrip', items[i]);
 				}
+				socket.emit('drawGraph');
 			});
 		});
 
