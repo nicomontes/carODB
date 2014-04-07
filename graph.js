@@ -1,9 +1,9 @@
-function drawGraph(data, text, element){
+function drawGraph(data, text, element, data2, text2){
 
   clearBox(element);
 
   var margin = {top: 20, right: 50, bottom: 30, left: 50},
-    width = 960 - margin.left - margin.right,
+    width = $(window).width() - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
 
   var parseDate = d3.time.format("%d-%b-%y").parse,

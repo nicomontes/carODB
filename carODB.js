@@ -6,6 +6,7 @@ var htmlIndex = fs.readFileSync(__dirname+'/index.html');
 var jsMap = fs.readFileSync(__dirname+'/map.js');
 var jsGraph = fs.readFileSync(__dirname+'/graph.js');
 var tsvData = fs.readFileSync(__dirname+'/data.tsv');
+var htmlTest = fs.readFileSync(__dirname+'/test.html');
 
 var app = require('http').createServer(function (req, res) {
 
@@ -83,6 +84,11 @@ var app = require('http').createServer(function (req, res) {
 		res.end(jsGraph);
 	}
 
+	if (req.method=='GET' && page=='/test') {
+		res.writeHead(200, {'Content-Type': 'text/html'});
+		res.end(htmlTest);
+	}
+
 });
 app.listen(8080);
 
@@ -121,7 +127,7 @@ io.sockets.on('connection', function (socket){
 		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
-			collection.find().toArray(function(err, items) {
+			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}).toArray(function(err, items) {
 				for (var i=0; i<items.length; i++) {
 					socket.emit('drawTrip', items[i]);
 				}

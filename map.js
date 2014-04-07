@@ -1,6 +1,8 @@
 // Global Variables
 // Map
 var map;
+var pointLat;
+var pointLon;
 // Data
 var dataLoad;
 // Map marker
@@ -54,10 +56,21 @@ function getTrip(value){
     if (data.gps.longitude != null && data.gps.latitude != null) {
       pointLat = data.gps.latitude;
       pointLon = data.gps.longitude;
-      googlePoint = new google.maps.LatLng(pointLat, pointLon);
-      points.push(googlePoint);
+      var diffLat = Math.abs(pointLat-dataLoad[dataLoad.length-2].gps.latitude);
+      var diffLon = Math.abs(pointLon-dataLoad[dataLoad.length-2].gps.longitude);
+      var diffDist = Math.sqrt(Math.pow(diffLat,2)+Math.pow(diffLon,2));
+      var diffTime = (parseFloat(data.time)-parseFloat(dataLoad[dataLoad.length-2].time))/1000;
+      // Remove strong values
+      if (diffDist/diffTime > 0.0005 && data.odbSpeed < 201.6){
+        console.log(diffDist/diffTime);
+        console.log(data.odbSpeed);
+      }
+      else {
+        googlePoint = new google.maps.LatLng(pointLat, pointLon);
+        points.push(googlePoint);
+      }
     }
-    if (dataLoad.length%10 == 0) {
+    if (dataLoad.length%20 == 0) {
       if (flightPath != null) {
         flightPath.setMap(null);
         flightPath = null;
@@ -304,7 +317,7 @@ function getTrip(value){
       // engineRPM graph
       drawGraph(dataengineRPM,'RPM','#engineRPM')
       // engineLoad graph
-      drawGraph(dataengineLoad,'Engine Load (%)','#engineLoad')
+      drawGraph(dataengineLoad,'Engine Load (%)', '#engineLoad')
       // throttlePosition graph
       drawGraph(datathrottlePosition,'Throttle Position (%)','#throttlePosition')
       // turboBoost graph
@@ -338,32 +351,6 @@ function addMarker(index){
     title: ""
   });
   marker.setMap(map);
-}
-
-/*function drawGraph(JSON, label, element){
-  clearBox(element);
-  new Morris.Line({
-    element: element,
-    data: JSON,
-    xkey: 'time',
-    ykeys: ['value'],
-    labels: [label],
-    pointSize: 0,
-    hoverCallback: function (index, options, y){addMarker(index, options);return y.toString();},
-  });
-}*/
-
-function drawDoubleGraph(JSON, labelA, labelB, ykeyA, ykeyB, element){
-  clearBox(element);
-  new Morris.Line({
-    element: element,
-    data: JSON,
-    xkey: 'time',
-    ykeys: [ykeyA, ykeyB],
-    labels: [labelA, labelB],
-    pointSize: 0,
-    hoverCallback: function (index, options, y){addMarker(index, options);return y.toString();},
-  });
 }
 
 // Change map position when scroll
