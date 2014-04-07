@@ -1,4 +1,4 @@
-function drawGraph(data, text, element, data2, text2){
+function drawGraph(data, text, element){
 
   clearBox(element);
 

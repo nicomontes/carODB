@@ -5,8 +5,6 @@ var MongoClient = require('mongodb').MongoClient;
 var htmlIndex = fs.readFileSync(__dirname+'/index.html');
 var jsMap = fs.readFileSync(__dirname+'/map.js');
 var jsGraph = fs.readFileSync(__dirname+'/graph.js');
-var tsvData = fs.readFileSync(__dirname+'/data.tsv');
-var htmlTest = fs.readFileSync(__dirname+'/test.html');
 
 var app = require('http').createServer(function (req, res) {
 
@@ -74,19 +72,9 @@ var app = require('http').createServer(function (req, res) {
 		res.end(jsMap);
 	}
 
-	if (req.method=='GET' && page=='/data.tsv') {
-		res.writeHead(200, {'Content-Type': 'text'});
-		res.end(tsvData);
-	}
-
 	if (req.method=='GET' && page=='/graph.js') {
 		res.writeHead(200, {'Content-Type': 'text/javascript'});
 		res.end(jsGraph);
-	}
-
-	if (req.method=='GET' && page=='/test') {
-		res.writeHead(200, {'Content-Type': 'text/html'});
-		res.end(htmlTest);
 	}
 
 });
