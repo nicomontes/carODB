@@ -1,8 +1,8 @@
 // Global Variables
 // Map
-var map;
-var pointLat;
-var pointLon;
+var map,
+    pointLat,
+    pointLon;
 // Data
 var dataLoad;
 // Map marker
@@ -70,7 +70,8 @@ function getTrip(value){
         points.push(googlePoint);
       }
     }
-    if (dataLoad.length%20 == 0) {
+    // draw 1 minute path on shot (less lags)
+    if (dataLoad.length%60 == 0) {
       if (flightPath != null) {
         flightPath.setMap(null);
         flightPath = null;
@@ -111,18 +112,18 @@ function getTrip(value){
   });
   socket.on('drawGraph', function (){
 
-      var dataEngineCoolantTemp = new Array();
-      var datal100Instant = new Array();
-      var dataodbSpeed = new Array();
-      var dataengineRPM = new Array();
-      var dataengineLoad = new Array();
-      var datathrottlePosition = new Array();
-      var dataturboBoost = new Array();
-      var datamasseAirFlowRate = new Array();
-      var dataintakeManifold = new Array();
-      var dataintakeAirTemp = new Array();
-      var dataengineCoolantTemp = new Array();
-      var datavoltage = new Array();
+      var dataEngineCoolantTemp = new Array(),
+          datal100Instant = new Array(),
+          dataodbSpeed = new Array(),
+          dataengineRPM = new Array(),
+          dataengineLoad = new Array(),
+          datathrottlePosition = new Array(),
+          dataturboBoost = new Array(),
+          datamasseAirFlowRate = new Array(),
+          dataintakeManifold = new Array(),
+          dataintakeAirTemp = new Array(),
+          dataengineCoolantTemp = new Array(),
+          datavoltage = new Array();
       if (dataLoad[0].l100Instant == null){
         dataLoad[0].l100Instant = "0";
       }
