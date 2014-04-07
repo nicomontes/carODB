@@ -51,7 +51,7 @@ function getTrip(value){
   dataLoad = new Array();
   dataLength = 0;
   var points = new Array();
-  socket.on('drawTrip', function (data){
+  socket.on('drawTrip', function (data, end){
     dataLoad.push(data);
     if (data.gps.longitude != null && data.gps.latitude != null) {
       pointLat = data.gps.latitude;
@@ -89,8 +89,7 @@ function getTrip(value){
       });
       flightPath.setMap(map);
     }
-  });
-  socket.on('drawGraph', function (){
+    if (end == true){
       if (flightPath != null) {
         flightPath.setMap(null);
         flightPath = null;
@@ -108,6 +107,9 @@ function getTrip(value){
         strokeWeight: 2
       });
       flightPath.setMap(map);
+    }
+  });
+  socket.on('drawGraph', function (){
 
       var dataEngineCoolantTemp = new Array();
       var datal100Instant = new Array();

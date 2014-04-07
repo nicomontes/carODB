@@ -116,9 +116,10 @@ io.sockets.on('connection', function (socket){
 			if(err) throw err;
 			var collection = db.collection(date);
 			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}).toArray(function(err, items) {
-				for (var i=0; i<items.length; i++) {
-					socket.emit('drawTrip', items[i]);
+				for (var i=0; i<items.length-1; i++) {
+					socket.emit('drawTrip', items[i], false);
 				}
+				socket.emit('drawTrip', items[items.length-1], true);
 				socket.emit('drawGraph');
 			});
 		});
