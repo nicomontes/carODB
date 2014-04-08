@@ -13,6 +13,10 @@ var lastPoint;
 var flightPath;
 // If Flight on map
 var getTripPass = false;
+// Last Select Value
+var lastSelectValue;
+// Socket
+var socket = io.connect();
 
 
 // Init Function
@@ -25,7 +29,6 @@ function init(){
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
-  var socket = io.connect()
   socket.emit('searchMongo', '')
   socket.on('date', function (data){
     var select = document.getElementById("select");
@@ -38,11 +41,11 @@ function init(){
     select.value = index;
     getTrip(index);
   });
+  document.getElementById('button').style.color = 'rgb(255, 69, 0)';
 }
 
 // GET all trip data
 function getTrip(value){
-  var socket = io.connect()
   socket.emit('getTrip', value)
   if (getTripPass == true) {
     flightPath.setMap(null);
@@ -62,8 +65,6 @@ function getTrip(value){
       var diffTime = (parseFloat(data.time)-parseFloat(dataLoad[dataLoad.length-2].time))/1000;
       // Remove strong values
       if (diffDist/diffTime > 0.0005 && data.odbSpeed < 201.6){
-        console.log(diffDist/diffTime);
-        console.log(data.odbSpeed);
       }
       else {
         googlePoint = new google.maps.LatLng(pointLat, pointLon);
@@ -336,6 +337,54 @@ function getTrip(value){
       // voltage graph
       drawGraph(datavoltage,'Voltage (V)','#voltage')
   });
+}
+
+function live(){
+  var element = document.getElementById('select');
+  var button = document.getElementById('button');
+  if (button.style.color == 'rgb(255, 69, 0)'){
+    button.style.color = 'rgb(107, 142, 35)';
+    lastSelectValue = element.childNodes[element.childNodes.length-1].value;
+    element.value = lastSelectValue;
+    getTrip(lastSelectValue);
+    setTimeout("askLastRecords()", 1000);
+  }
+  else {
+    button.style.color = 'rgb(255, 69, 0)';
+  }
+  socket.on('live', function (data){
+    if (data.time > dataLoad[dataLoad.length-1].time){
+      var lat1 = dataLoad[dataLoad.length-1].gps.latitude;
+      var lon1 = dataLoad[dataLoad.length-1].gps.longitude;
+      var lat2 = data.gps.latitude;
+      var lon2 = data.gps.longitude;
+      googlePoint1 = new google.maps.LatLng(lat1, lon1);
+      googlePoint1 = new google.maps.LatLng(lat2, lon2);
+      points.push(googlePoint1);
+      points.push(googlePoint2);
+      var mapOptions = {
+        zoom: 12,
+        center: new google.maps.LatLng(pointLat, pointLon)
+      };
+      map.setOptions(mapOptions);
+      flightPath = new google.maps.Polyline({
+        path: points,
+        geodesic: true,
+        strokeColor: '#FF0000',
+        strokeOpacity: 1.0,
+        strokeWeight: 2
+      });
+      flightPath.setMap(map);
+      dataLoad.push(data);
+    }
+  });
+}
+
+function askLastRecords(){
+  if (document.getElementById('button').style.color == 'rgb(107, 142, 35)'){
+    socket.emit('lastRecords', lastSelectValue);
+    setTimeout("askLastRecords()", 1000);
+  }
 }
 
 // ADD marker when moose hoover graph

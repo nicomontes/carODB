@@ -25,42 +25,33 @@
         margin: 0px;
         padding: 0px
       }
-      .morris-hover{
-        z-index: 9
+      .redButton{
+        color: rgb(255, 69, 0)
       }
-
+      .greenButton{
+        color: rgb(107, 142, 35)
+      }
       body {
         font: 10px sans-serif;
       }
-
       .axis path,
       .axis line {
         fill: none;
         stroke: #000;
         shape-rendering: crispEdges;
       }
-
       .x.axis path {
         display: none;
       }
-
       .line {
         fill: none;
         stroke: steelblue;
         stroke-width: 1.5px;
       }
-
-      .line2 {
-        fill: none;
-        stroke: tomato;
-        stroke-width: 1.5px;
-      }
-
       .overlay {
         fill: none;
         pointer-events: all;
       }
-
       .focus circle {
         fill: none;
         stroke: steelblue;
@@ -70,6 +61,7 @@
   <body onload="init()">
     <div id="map-canvas"></div>
     <select id="select" onchange="getTrip(this.options[this.selectedIndex].value)"></select>
+    <button id="button" type="button" onclick="live()">Live</button>
     <div id="l100Instant"></div>
     <div id="odbSpeed"></div>
     <div id="engineRPM"></div>

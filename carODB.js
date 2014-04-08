@@ -115,12 +115,32 @@ io.sockets.on('connection', function (socket){
 		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
-			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}, {"sort": "time"}).toArray(function(err, items) {
-				for (var i=0; i<items.length-1; i++) {
+			var options = {
+				"sort": "time"
+			}
+			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}, options).toArray(function(err, items) {
+				for (var i=0; i<items.length-2; i++) {
 					socket.emit('drawTrip', items[i], false);
 				}
 				socket.emit('drawTrip', items[items.length-1], true);
 				socket.emit('drawGraph');
+			});
+		});
+
+	});
+
+	socket.on('lastRecords', function (date){
+
+		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
+			if(err) throw err;
+			var collection = db.collection(date);
+			var options = {
+				"limit":2,
+				"sort": [['time', 'desc']]
+			}
+			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}, options).toArray(function(err, items) {
+				socket.emit('live', items[1]);
+				socket.emit('live', items[0]);
 			});
 		});
 
