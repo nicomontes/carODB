@@ -348,6 +348,7 @@ function live(){
     element.value = lastSelectValue;
     getTrip(lastSelectValue);
     setTimeout("askLastRecords()", 1000);
+    setTimeout("askGraph()", 20000);
   }
   else {
     button.style.color = 'rgb(255, 69, 0)';
@@ -384,6 +385,13 @@ function askLastRecords(){
   if (document.getElementById('button').style.color == 'rgb(107, 142, 35)'){
     socket.emit('lastRecords', lastSelectValue);
     setTimeout("askLastRecords()", 1000);
+  }
+}
+
+function askGraph(){
+  if (document.getElementById('button').style.color == 'rgb(107, 142, 35)'){
+    socket.emit('askDrawGraph');
+    setTimeout("askGraph()", 20000);
   }
 }
 

@@ -146,4 +146,8 @@ io.sockets.on('connection', function (socket){
 
 	});
 
+	socket.on('askDrawGraph', function (){
+		socket.emit('drawGraph');
+	})
+
 });
