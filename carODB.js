@@ -88,7 +88,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('searchMongo', function (){
 
-		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 
 			db.collectionNames(function(err, coll){
@@ -112,7 +112,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('getTrip', function (date){
 
-		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
 			var options = {
@@ -131,7 +131,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('lastRecords', function (date){
 
-		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
 			var options = {
