@@ -56,10 +56,15 @@
         fill: none;
         stroke: steelblue;
       }
+      #container {
+        position: absolute;
+        top: 40%;
+      }
     </style>
   </head>
   <body onload="init()">
     <div id="map-canvas"></div>
+    <div id="container">
     <select id="select" onchange="getTrip(this.options[this.selectedIndex].value)"></select>
     <button id="button" type="button" onclick="live()">Live</button>
     <div id="l100Instant"></div>
@@ -73,6 +78,7 @@
     <div id="intakeAirTemp"></div>
     <div id="engineCoolantTemp"></div>
     <div id="voltage"></div>
+    </div>
     <script src="graph.js"></script>
   </body>
 </html>
