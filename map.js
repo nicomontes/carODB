@@ -29,6 +29,10 @@ function init(){
   map = new google.maps.Map(document.getElementById('map-canvas'),
       mapOptions);
 
+  google.maps.event.addListener(map, 'tilesloaded', function(){
+    document.getElementById('map-canvas').style.position = 'fixed';
+  });
+
   socket.emit('searchMongo', '')
   socket.on('date', function (data){
     var select = document.getElementById("select");
