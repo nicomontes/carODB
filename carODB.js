@@ -12,7 +12,7 @@ var app = require('http').createServer(function (req, res) {
 
 	if (req.method=='GET' && page=='/post') {
 
-		MongoClient.connect("mongodb://172.17.0.32:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 
 			var data = url.parse(req.url, true).query;
