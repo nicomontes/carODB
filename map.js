@@ -18,7 +18,6 @@ var lastSelectValue;
 // Socket
 var socket = io.connect();
 
-
 // Init Function
 function init(){
   var mapOptions = {
@@ -241,7 +240,7 @@ function getTrip(value){
         if (dataLoad[i].engineLoad != null){
           var data = new Object();
           data.date = new Date(dataLoad[i].time.match(/^[0-9]{10}/g)[0]*1000)
-          var value = (parseFloat(dataLoad[i].turboBoost)+20)*2.5;
+          var value = parseFloat(dataLoad[i].turboBoost);
           data.close = value;
           dataturboBoost.push(data);
         }
@@ -329,7 +328,7 @@ function getTrip(value){
       // throttlePosition graph
       drawGraph(datathrottlePosition,'Throttle Position (%)','#throttlePosition')
       // turboBoost graph
-      drawGraph(dataturboBoost,'Turbo Boost (%)','#turboBoost')
+      drawGraph(dataturboBoost,'Turbo Boost (psi)','#turboBoost')
       // masseAirFlowRate graph
       drawGraph(datamasseAirFlowRate,'Masse Air Flow Rate (g/s)','#masseAirFlowRate')
       // intakeManifold graph
@@ -418,11 +417,12 @@ function addMarker(index){
 }
 
 // Change map position when scroll
-$(window).on("mousewheel", function(){
-  var elem = document.getElementById("map-canvas");
-  var top = $(window).scrollTop();
-  elem.style.top = top+"px";
-});
+//$(window).on("mouseweel", function(){
+  //document.getElementById("map-canvas").style.position = "fixed"
+  //var elem = document.getElementById("map-canvas");
+  //var top = $(window).scrollTop();
+  //elem.style.top = top+"px";
+//});
 
 function clearBox(elementID)
 {
