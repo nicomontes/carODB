@@ -12,7 +12,7 @@ var app = require('http').createServer(function (req, res) {
 
 	if (req.method=='GET' && page=='/post') {
 
-		MongoClient.connect("mongodb://192.168.1.102:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://127.0.0.1:27017/carODB", function(err, db) {
 			if(err) throw err;
 
 			var data = url.parse(req.url, true).query;
@@ -78,7 +78,7 @@ var app = require('http').createServer(function (req, res) {
 	}
 
 });
-app.listen(10000);
+app.listen(80);
 
 var io = require("socket.io").listen(app);
 
@@ -88,7 +88,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('searchMongo', function (){
 
-		MongoClient.connect("mongodb://192.168.1.102:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://127.0.0.1:27017/carODB", function(err, db) {
 			if(err) throw err;
 
 			db.collectionNames(function(err, coll){
@@ -112,7 +112,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('getTrip', function (date){
 
-		MongoClient.connect("mongodb://192.168.1.102:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://127.0.0.1:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
 			var options = {
@@ -131,7 +131,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('lastRecords', function (date){
 
-		MongoClient.connect("mongodb://192.168.1.102:27017/carODB", function(err, db) {
+		MongoClient.connect("mongodb://127.0.0.1:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
 			var options = {
