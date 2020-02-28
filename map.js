@@ -22,7 +22,7 @@ var socket = io.connect();
 function init(){
   var mapOptions = {
     zoom: 8,
-    center: new google.maps.LatLng(-34.397, 150.644)
+    center: new google.maps.LatLng(46.66, 6.49)
   };
 
   map = new google.maps.Map(document.getElementById('map-canvas'),
