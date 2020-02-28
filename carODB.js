@@ -1,6 +1,7 @@
 var url = require('url');
 var fs = require('fs');
 var MongoClient = require('mongodb').MongoClient;
+require('dotenv').config()
 
 var htmlIndex = fs.readFileSync(__dirname+'/index.html');
 var jsMap = fs.readFileSync(__dirname+'/map.js');
@@ -12,7 +13,7 @@ var app = require('http').createServer(function (req, res) {
 
 	if (req.method=='GET' && page=='/post') {
 
-		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI || "mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 
 			var data = url.parse(req.url, true).query;
@@ -78,7 +79,8 @@ var app = require('http').createServer(function (req, res) {
 	}
 
 });
-app.listen(8080);
+const port = process.env.PORT || 3000;
+app.listen(port);
 
 var io = require("socket.io").listen(app);
 
@@ -88,7 +90,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('searchMongo', function (){
 
-		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI || "mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 
 			db.collectionNames(function(err, coll){
@@ -112,7 +114,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('getTrip', function (date){
 
-		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI || "mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
 			var options = {
@@ -131,7 +133,7 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('lastRecords', function (date){
 
-		MongoClient.connect("mongodb://172.17.0.3:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI || "mongodb://172.17.0.3:27017/carODB", function(err, db) {
 			if(err) throw err;
 			var collection = db.collection(date);
 			var options = {
