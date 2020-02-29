@@ -55,7 +55,7 @@ var app = require('http').createServer(function (req, res) {
 				voltage : data.kff1238
 			}
 
-			db.collection(data.session).insert(doc, {w:1}, function(err, result) {
+			db.collection(data.session).insertOne(doc, {w:1}, function(err, result) {
 				if(err) throw err;
 			});
 
@@ -92,7 +92,7 @@ io.sockets.on('connection', function (socket){
 		MongoClient.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/carODB", function(err, db) {
 			if(err) throw err;
 
-			db.collectionNames(function(err, coll){
+			db.listCollections().toArray(function(err, coll){
 				var selectObject = {};
 				var selectObject={};
 
