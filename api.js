@@ -24,7 +24,6 @@ var app = require('http').createServer(function (req, res) {
 
 			console.log(data);
 
-			var collection = db.collection(data.session);
 			var doc = {
 				id : data.id,
 				email : data.eml,
@@ -56,7 +55,9 @@ var app = require('http').createServer(function (req, res) {
 				voltage : data.kff1238
 			}
 
-			collection.insert(doc, {w:1}, function(err, result) {});
+			db.collection(data.session).insert(doc, {w:1}, function(err, result) {
+				if(err) throw err;
+			});
 
 			res.writeHead(200, {'Content-Type': 'text/plain'});
 			res.end('OK!');
