@@ -13,8 +13,10 @@ var app = require('http').createServer(function (req, res) {
 
 	if (req.method=='GET' && page=='/post') {
 
-		MongoClient.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
+
+			const db = client.db(process.env.MONGODB_DATABASE);
 
 			var data = url.parse(req.url, true).query;
 
@@ -89,9 +91,9 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('searchMongo', function (){
 
-		MongoClient.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
-
+			const db = client.db(process.env.MONGODB_DATABASE);
 			db.listCollections().toArray(function(err, coll){
 				var selectObject = {};
 				var selectObject={};
@@ -113,8 +115,9 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('getTrip', function (date){
 
-		MongoClient.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
+			const db = client.db(process.env.MONGODB_DATABASE);
 			var collection = db.collection(date);
 			var options = {
 				"sort": "time"
@@ -132,8 +135,9 @@ io.sockets.on('connection', function (socket){
 
 	socket.on('lastRecords', function (date){
 
-		MongoClient.connect(process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/carODB", function(err, db) {
+		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
+			const db = client.db(process.env.MONGODB_DATABASE);
 			var collection = db.collection(date);
 			var options = {
 				"limit":2,
