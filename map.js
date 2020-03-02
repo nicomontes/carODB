@@ -62,8 +62,8 @@ function getTrip(value){
     if (data.gps.longitude != null && data.gps.latitude != null) {
       pointLat = data.gps.latitude[0];
       pointLon = data.gps.longitude[0];
-      var diffLat = Math.abs(pointLat-dataLoad[dataLoad.length-2].gps.latitude[0]);
-      var diffLon = Math.abs(pointLon-dataLoad[dataLoad.length-2].gps.longitude[0]);
+      var diffLat = Math.abs(pointLat-dataLoad[dataLoad.length-2].gps.latitude);
+      var diffLon = Math.abs(pointLon-dataLoad[dataLoad.length-2].gps.longitude);
       var diffDist = Math.sqrt(Math.pow(diffLat,2)+Math.pow(diffLon,2));
       var diffTime = (parseFloat(data.time)-parseFloat(dataLoad[dataLoad.length-2].time))/1000;
       // Remove strong values
@@ -358,8 +358,8 @@ function live(){
   }
   socket.on('live', function (data){
     if (data.time > dataLoad[dataLoad.length-1].time){
-      var lat1 = dataLoad[dataLoad.length-1].gps.latitude[0];
-      var lon1 = dataLoad[dataLoad.length-1].gps.longitude[0];
+      var lat1 = dataLoad[dataLoad.length-1].gps.latitude;
+      var lon1 = dataLoad[dataLoad.length-1].gps.longitude;
       var lat2 = data.gps.latitude[0];
       var lon2 = data.gps.longitude[0];
       googlePoint1 = new google.maps.LatLng(lat1, lon1);
@@ -400,8 +400,8 @@ function askGraph(){
 
 // ADD marker when moose hoover graph
 function addMarker(index){
-  var lat = dataLoad[index].gps.latitude[0];
-  var lon = dataLoad[index].gps.longitude[0];
+  var lat = dataLoad[index].gps.latitude;
+  var lon = dataLoad[index].gps.longitude;
   var time = dataLoad[index].time;
   var myLatlng = new google.maps.LatLng(lat,lon);
   var mapOptions = {zoom: 12,center: myLatlng};
