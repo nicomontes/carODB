@@ -59,7 +59,7 @@ function getTrip(value){
   var points = new Array();
   socket.on('drawTrip', function (data, end){
     dataLoad.push(data);
-    if (data.gps.longitude[0] != null && data.gps.latitude[0] != null) {
+    if (data.gps.longitude != null && data.gps.latitude != null) {
       pointLat = data.gps.latitude[0];
       pointLon = data.gps.longitude[0];
       var diffLat = Math.abs(pointLat-dataLoad[dataLoad.length-2].gps.latitude[0]);
