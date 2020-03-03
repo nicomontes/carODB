@@ -14,7 +14,7 @@ function drawGraph(data, text, element){
   var x = d3.scaleTime()
     .range([0, width]);
 
-  var y = d3.scale.linear()
+  var y = d3.scaleLinear()
     .range([height, 0]);
 
   var xAxis = d3.svg.axis()
