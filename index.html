@@ -69,7 +69,12 @@
   <body onload="init()">
     <div id="map-canvas"></div>
     <div id="container">
-    <select id="select" onchange="getTrip(this.options[this.selectedIndex].value)"></select>
+    <div class="input-group mb-3">
+      <div class="input-group-prepend">
+        <label class="input-group-text" for="inputGroupSelect01">Date</label>
+      </div>
+      <select id="select" onchange="getTrip(this.options[this.selectedIndex].value)"></select>
+    </div>
     <button id="button" type="button" onclick="live()">Live</button>
     <div id="l100Instant"></div>
     <div id="odbSpeed"></div>
