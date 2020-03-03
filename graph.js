@@ -24,11 +24,9 @@ function drawGraph(data, text, element){
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var xScale = d3.scaleLinear()
-    .domain([0, n-1]) // input
     .range([0, width]); // output
 
   var yScale = d3.scaleLinear()
-    .domain([0, 1]) // input 
     .range([height, 0]); // output 
 
   var xAxis = svg.append("g")
