@@ -45,7 +45,7 @@ var app = require('http').createServer(function (req, res) {
 				averageTripSpeedMoving : data.kff1263,
 				l100LongTerm : data.kff5203,
 				l100Instant : data.kff1207,
-				fuelFlowRateHour : kff125d,
+				fuelFlowRateHour : data.kff125d,
 				fuelLevel : data.k2f,
 				fuelPressure : data.k0a,
 				horsepower : data.kff1226,
