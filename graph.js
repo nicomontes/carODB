@@ -6,43 +6,35 @@ function drawGraph(data, text, element){
     width = $(window).width() - margin.left - margin.right,
     height = 250 - margin.top - margin.bottom;
 
-  var bisectDate = d3.bisector(function(d) { return d.date; }).left,
+  var parseDate = d3.time.format("%d-%b-%y").parse,
+    bisectDate = d3.bisector(function(d) { return d.date; }).left,
     formatValue = d3.format(",.2f"),
     formatCurrency = function (d){return formatValue(d);};
     //formatCurrency = function(d) { return formatValue(d); };
 
-  var x = d3.scaleTime()
+  var x = d3.time.scale()
     .range([0, width]);
 
-  var y = d3.scaleLinear()
+  var y = d3.scale.linear()
     .range([height, 0]);
 
+  var xAxis = d3.svg.axis()
+    .scale(x)
+    .orient("bottom");
+
+  var yAxis = d3.svg.axis()
+    .scale(y)
+    .orient("left");
+
+  var line = d3.svg.line()
+    .x(function(d) { return x(d.date); })
+    .y(function(d) { return y(d.close); });
+
   var svg = d3.select(element).append("svg")
-  .attr("width", width + margin.left + margin.right)
-  .attr("height", height + margin.top + margin.bottom)
-  .append("g")
-  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-  var xScale = d3.scaleLinear()
-    .range([0, width]); // output
-
-  var yScale = d3.scaleLinear()
-    .range([height, 0]); // output 
-
-  var xAxis = svg.append("g")
-    .attr("class", "x axis")
-    .attr("transform", "translate(0," + height + ")")
-    .call(d3.axisBottom(xScale));
-
-  var yAxis = svg.append("g")
-    .attr("class", "y axis")
-    .call(d3.axisLeft(yScale));
-    
-
-  var line = d3.line()
-    .defined(d => !isNaN(d.close))
-    .x(d => x(d.date))
-    .y(d => y(d.close))
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   data.sort(function(a, b) {
     return a.date - b.date;
