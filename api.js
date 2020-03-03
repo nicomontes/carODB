@@ -105,7 +105,7 @@ io.sockets.on('connection', function (socket){
 			db.listCollections().toArray(function(err, coll){
 				var selectObject = {};
 
-				coll.sort()
+				coll.sort((a, b) => a.name - b.name)
 
 				for (var i=0;i<coll.length;i++)
 				{
