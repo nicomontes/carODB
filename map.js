@@ -38,7 +38,7 @@ function init(){
     var i = 0
     for(index in data) {
       var date = new Date(index.match(/^[0-9]{10}/g)[0]*1000);
-      select.options[select.options.length] = new Option(date.toLocaleDateString(), index);
+      select.options[select.options.length] = new Option(date.toLocaleString(), index);
       i++
     }
     select.value = index;
