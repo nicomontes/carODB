@@ -11,7 +11,7 @@ function drawGraph(data, text, element){
     formatCurrency = function (d){return formatValue(d);};
     //formatCurrency = function(d) { return formatValue(d); };
 
-  var x = d3.time.scale()
+  var x = d3.scaleTime()
     .range([0, width]);
 
   var y = d3.scale.linear()
