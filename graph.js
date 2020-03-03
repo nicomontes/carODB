@@ -24,16 +24,19 @@ function drawGraph(data, text, element){
   .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   var xAxis = svg.append("g")
-    .scale(x)
-    .orient("bottom");
+    .attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(xScale));
 
   var yAxis = svg.append("g")
-    .scale(y)
-    .orient("left");
+    .attr("class", "y axis")
+    .call(d3.axisLeft(yScale));
+    
 
-  var line = svg.append("g")
-    .x(function(d) { return x(d.date); })
-    .y(function(d) { return y(d.close); });
+  var line = d3.line()
+    .defined(d => !isNaN(d.close))
+    .x(d => x(d.date))
+    .y(d => y(d.close))
 
   data.sort(function(a, b) {
     return a.date - b.date;
