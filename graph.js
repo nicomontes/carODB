@@ -17,23 +17,23 @@ function drawGraph(data, text, element){
   var y = d3.scaleLinear()
     .range([height, 0]);
 
-  var xAxis = d3.svg.axis()
+  var svg = d3.select(element).append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+  var xAxis = svg.append("g")
     .scale(x)
     .orient("bottom");
 
-  var yAxis = d3.svg.axis()
+  var yAxis = svg.append("g")
     .scale(y)
     .orient("left");
 
-  var line = d3.svg.line()
+  var line = svg.append("g")
     .x(function(d) { return x(d.date); })
     .y(function(d) { return y(d.close); });
-
-  var svg = d3.select(element).append("svg")
-    .attr("width", width + margin.left + margin.right)
-    .attr("height", height + margin.top + margin.bottom)
-    .append("g")
-    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
   data.sort(function(a, b) {
     return a.date - b.date;
