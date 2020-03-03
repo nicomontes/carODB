@@ -104,7 +104,8 @@ io.sockets.on('connection', function (socket){
 			const db = client.db(process.env.MONGODB_DATABASE);
 			db.listCollections().toArray(function(err, coll){
 				var selectObject = {};
-				var selectObject={};
+
+				coll.sort()
 
 				for (var i=0;i<coll.length;i++)
 				{
