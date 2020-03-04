@@ -31,9 +31,7 @@ function init(){
   google.maps.event.addListener(map, 'tilesloaded', function(){
     document.getElementById('map-canvas').style.position = 'fixed';
   });
-
-  showModal();
-
+  
   socket.emit('searchMongo', '')
   socket.on('date', function (data){
     var select = document.getElementById("select");
