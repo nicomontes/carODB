@@ -433,7 +433,7 @@ function clearBox(elementID)
 
 function showModal() {
   var modal = $('#modal')
-  $('#modal').modal(
+  $('#modal')[0].modal(
     {
       show: true, 
       backdrop: false
