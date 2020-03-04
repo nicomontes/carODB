@@ -149,11 +149,7 @@ io.sockets.on('connection', function (socket){
 			if(err) throw err;
 			const db = client.db(process.env.MONGODB_DATABASE);
 			var collection = db.collection(date);
-			var options = {
-				"limit":2,
-				"sort": [['time', 'desc']]
-			}
-			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}, options).toArray(function(err, items) {
+			collection.find({}, {_id:0, id:0, email:0, accelerometerTotal:0, barometer:0, averageTripSpeed:0, horsepower:0, kw:0}).sort({ time: -1 }).limit(2).toArray(function(err, items) {
 				socket.emit('live', items[1]);
 				socket.emit('live', items[0]);
 			});
