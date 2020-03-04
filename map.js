@@ -32,8 +32,6 @@ function init(){
     document.getElementById('map-canvas').style.position = 'fixed';
   });
 
-  $('#modal').modal('show')
-
   socket.emit('searchMongo', '')
   socket.on('date', function (data){
     var select = document.getElementById("select");
