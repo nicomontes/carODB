@@ -96,16 +96,15 @@
     <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modal" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Identity</h5>
+          </div>
           <div class="modal-body">
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <span class="input-group-text" id="basic-addon1">mail</span>
-              </div>
-              <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-            </div>
+            <p>We need your email.</p>
+            <input type="text" class="form-control" placeholder="email" id="email" aria-label="email" aria-describedby="basic-addon1">
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">View</button>
+            <button type="button" class="btn btn-primary" onclick="sendEmail()">Send</button>
           </div>
         </div>
       </div>

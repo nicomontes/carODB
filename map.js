@@ -32,7 +32,7 @@ function init(){
     document.getElementById('map-canvas').style.position = 'fixed';
   });
 
-  $('#modal').modal('show')
+  showModal();
 
   socket.emit('searchMongo', '')
   socket.on('date', function (data){
@@ -429,4 +429,17 @@ function addMarker(index){
 function clearBox(elementID)
 {
     document.getElementById(elementID.substr(1)).innerHTML = "";
+}
+
+function showModal() {
+  $('#modal').modal(
+    {
+      show: true, 
+      backdrop: false
+    }
+  )
+}
+
+function sendEmail() {
+  console.log($('#email').value)
 }
