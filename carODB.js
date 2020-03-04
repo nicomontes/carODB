@@ -22,8 +22,6 @@ var app = require('http').createServer(function (req, res) {
 				data.session = "0"
 			}
 
-			console.log(data);
-
 			var collection = db.collection(data.session);
 			var doc = {
 				id : data.id,
