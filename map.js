@@ -31,7 +31,9 @@ function init(){
   google.maps.event.addListener(map, 'tilesloaded', function(){
     document.getElementById('map-canvas').style.position = 'fixed';
   });
-  
+
+  $('#modal').modal('show')
+
   socket.emit('searchMongo', '')
   socket.on('date', function (data){
     var select = document.getElementById("select");
@@ -427,14 +429,4 @@ function addMarker(index){
 function clearBox(elementID)
 {
     document.getElementById(elementID.substr(1)).innerHTML = "";
-}
-
-function showModal() {
-  var modal = $('#modal')
-  $('#modal').modal(
-    {
-      show: true, 
-      backdrop: false
-    }
-  )
 }
