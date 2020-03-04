@@ -67,6 +67,18 @@
     </style>
   </head>
   <body onload="init()">
+    <!-- Modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">Large modal</button>
+    <div class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="email" id="email" aria-label="email" aria-describedby="basic-addon1">
+            <button type="button" class="btn btn-primary">View</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <div id="map-canvas"></div>
     <div id="container" class="container">
       <div class="row">
@@ -91,18 +103,6 @@
       <div id="intakeAirTemp"></div>
       <div id="engineCoolantTemp"></div>
       <div id="voltage"></div>
-    </div>
-    <!-- Modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal">Large modal</button>
-    <div class="modal fade bd-example-modal-lg" id="modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="email" id="email" aria-label="email" aria-describedby="basic-addon1">
-            <button type="button" class="btn btn-primary">View</button>
-          </div>
-        </div>
-      </div>
     </div>
     <script src="graph.js"></script>
   </body>
