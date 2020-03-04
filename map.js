@@ -435,11 +435,12 @@ function showModal() {
   $('#modal').modal(
     {
       show: true, 
-      backdrop: false
+      backdrop: 'static'
     }
   )
 }
 
 function sendEmail() {
-  console.log($('#email').value)
+  console.log($('#email')[0].value)
+  $('#modal').modal('hide')
 }
