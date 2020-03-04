@@ -428,3 +428,7 @@ function clearBox(elementID)
 {
     document.getElementById(elementID.substr(1)).innerHTML = "";
 }
+
+function showModal() {
+  $('#modal').modal({show:true, backdrop:false})
+}
