@@ -34,18 +34,6 @@ function init(){
 
   showModal();
 
-  socket.emit('searchMongo', '')
-  socket.on('date', function (data){
-    var select = document.getElementById("select");
-    var i = 0
-    for(index in data) {
-      var date = new Date(index.match(/^[0-9]{10}/g)[0]*1000);
-      select.options[select.options.length] = new Option(date.toLocaleString(), index);
-      i++
-    }
-    select.value = index;
-    getTrip(index);
-  });
   document.getElementById('button').style.color = 'rgb(255, 69, 0)';
 }
 
@@ -441,6 +429,18 @@ function showModal() {
 }
 
 function sendEmail() {
-  console.log($('#email')[0].value)
   $('#modal').modal('hide')
+
+  socket.emit('searchMongo', $('#email')[0].value)
+  socket.on('date', function (data){
+    var select = document.getElementById("select");
+    var i = 0
+    for(index in data) {
+      var date = new Date(index.match(/^[0-9]{10}/g)[0]*1000);
+      select.options[select.options.length] = new Option(date.toLocaleString(), index);
+      i++
+    }
+    select.value = index;
+    getTrip(index);
+  });
 }

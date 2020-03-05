@@ -97,7 +97,7 @@ var io = require("socket.io").listen(app);
 
 io.sockets.on('connection', function (socket){
 
-	socket.on('searchMongo', function (){
+	socket.on('searchMongo', function (email){
 
 		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
@@ -109,11 +109,15 @@ io.sockets.on('connection', function (socket){
 
 				for (var i=0;i<coll.length;i++)
 				{
-						if (coll[i].name.match(/[0-9]{13}/g) != null) {
+					var collection = db.collection(coll[i].name);
+					collection.findOne({}, {email:1}, function(err, item) {
+						console.log(item)
+						if (coll[i].name.match(/[0-9]{13}/g) != null && item.email == email) {
 							var timestamp = coll[i].name.match(/[0-9]{13}/g)[0].match(/^[0-9]{10}/g)[0]*1000;
 							var date = new Date(timestamp);
 							selectObject[coll[i].name.match(/[0-9]{13}/g)]=date.toLocaleString();
-					}
+						}
+					});
 				}
 
 				socket.emit('date', selectObject);
