@@ -112,11 +112,13 @@ io.sockets.on('connection', function (socket){
 						console.log(collId)
 						socket.emit('date', coll[i].name.match(/[0-9]{13}/g));
 						var collection = db.collection(coll[i].name);
-						var res = await collection.findOne({}, {email:1}, function(err, item) {
-							if (item.email == email) {
-								console.log("---")
-								//socket.emit('date', collId.match(/[0-9]{13}/g));
-							}
+						return new Promise((resolve, reject) => {
+							collection.findOne({}, {email:1}, function(err, item) {
+								if (item.email == email) {
+									console.log("---")
+									//socket.emit('date', collId.match(/[0-9]{13}/g));
+								}
+							});
 						});
 					}
 				}
