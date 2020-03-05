@@ -112,17 +112,15 @@ io.sockets.on('connection', function (socket){
 					if (coll[i].name.match(/[0-9]{13}/g) != null) {
 						var collection = db.collection(coll[i].name);
 						collection.findOne({}, {email:1}, function(err, item) {
-							console.log(item)
 							if (item.email == email) {
 								var timestamp = item.time.match(/[0-9]{13}/g)[0].match(/^[0-9]{10}/g)[0]*1000;
 								var date = new Date(timestamp);
 								selectObject[item.time.match(/[0-9]{13}/g)]=date.toLocaleString();
+								socket.emit('date', selectObject);
 							}
 						});
 					}
 				}
-				console.log(selectObject)
-				socket.emit('date', selectObject);
 			});
 
 		});
