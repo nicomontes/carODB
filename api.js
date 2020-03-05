@@ -24,8 +24,6 @@ var app = require('http').createServer(function (req, res) {
 				data.session = "0"
 			}
 
-			console.log(data);
-
 			var doc = {
 				id : data.id,
 				email : data.eml,
@@ -111,12 +109,10 @@ io.sockets.on('connection', function (socket){
 				{
 					if (coll[i].name.match(/[0-9]{13}/g) != null) {
 						collId = coll[i].name
-						console.log(coll[i].name)
-						console.log(collId)
 						var collection = db.collection(coll[i].name);
 						collection.findOne({}, {email:1}, function(err, item) {
 							console.log("---")
-							console.log(coll[i].name)
+							console.log(item)
 							if (item.email == email) {
 								socket.emit('date', collId.match(/[0-9]{13}/g));
 							}
