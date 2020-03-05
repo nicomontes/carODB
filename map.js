@@ -438,7 +438,7 @@ function sendEmail() {
       var date = new Date(data[index].match(/^[0-9]{10}/g)[0]*1000);
       select.options[select.options.length] = new Option(date.toLocaleString(), data[index]);
     }
-    //select.value = index;
-    //getTrip(index);
+    select.value = index;
+    getTrip(index);
   });
 }
