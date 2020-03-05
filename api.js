@@ -109,10 +109,12 @@ io.sockets.on('connection', function (socket){
 
 				for (var i=0;i<coll.length;i++)
 				{
+					var j = i
 					var collection = db.collection(coll[i].name);
 					collection.findOne({}, {email:1}, function(err, item) {
 						console.log(item)
-						console.log(coll[i])
+						console.log(i)
+						console.log(j)
 						if (coll[i].name.match(/[0-9]{13}/g) != null && item.email == email) {
 							var timestamp = coll[i].name.match(/[0-9]{13}/g)[0].match(/^[0-9]{10}/g)[0]*1000;
 							var date = new Date(timestamp);
