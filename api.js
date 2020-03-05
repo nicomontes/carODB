@@ -109,8 +109,8 @@ io.sockets.on('connection', function (socket){
 				{
 					if (coll[i].name.match(/[0-9]{13}/g) != null) {
 						collId = coll[i].name
-						var collection = db.collection(coll[i].name);
-						collection.findOne({}, {email:1}, await function(err, item) {
+						var collection = await db.collection(coll[i].name);
+						collection.findOne({}, {email:1}, function(err, item) {
 							console.log("---")
 							console.log(item)
 							if (item.email == email) {
