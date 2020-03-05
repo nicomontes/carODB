@@ -435,8 +435,8 @@ function sendEmail() {
   socket.on('date', function (data){
     var select = document.getElementById("select");
     for(index in data) {
-      var date = new Date(index.match(/^[0-9]{10}/g)[0]*1000);
-      select.options[select.options.length] = new Option(date.toLocaleString(), index);
+      var date = new Date(data[index].match(/^[0-9]{10}/g)[0]*1000);
+      select.options[select.options.length] = new Option(date.toLocaleString(), data[index]);
     }
     //select.value = index;
     //getTrip(index);
