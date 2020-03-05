@@ -100,7 +100,7 @@ io.sockets.on('connection', function (socket){
 		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
 			const db = client.db(process.env.MONGODB_DATABASE);
-			db.listCollections().toArray(function(err, coll){
+			db.listCollections().toArray(async function(err, coll){
 				var selectObject = {};
 
 				coll.sort((a, b) => a.name - b.name)
@@ -110,7 +110,7 @@ io.sockets.on('connection', function (socket){
 					if (coll[i].name.match(/[0-9]{13}/g) != null) {
 						collId = coll[i].name
 						var collection = db.collection(coll[i].name);
-						collection.findOne({}, {email:1}, async function(err, item) {
+						collection.findOne({}, {email:1}, await function(err, item) {
 							console.log("---")
 							console.log(item)
 							if (item.email == email) {
