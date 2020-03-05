@@ -109,7 +109,7 @@ io.sockets.on('connection', function (socket){
 
 				for (var i=0;i<coll.length;i++)
 				{
-					collId = coll[i].name.match(/[0-9]{13}/g)
+					collId = coll[i].name.match(/[0-9]{13}/g)[0]
 					if (coll[i].name.match(/[0-9]{13}/g) != null) {
 						var collection = db.collection(collId);
 						collection.findOne({}, {email:1}, function(err, item) {
