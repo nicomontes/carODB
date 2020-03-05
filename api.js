@@ -103,7 +103,7 @@ io.sockets.on('connection', function (socket){
 			if(err) throw err;
 			const db = client.db(process.env.MONGODB_DATABASE);
 			db.listCollections().toArray(function(err, coll){
-				//var selectObject = {};
+				var selectObject = {};
 
 				coll.sort((a, b) => a.name - b.name)
 
@@ -113,7 +113,11 @@ io.sockets.on('connection', function (socket){
 						var collection = db.collection(coll[i].name);
 						collection.findOne({}, {email:1}, function(err, item) {
 							if (item.email == email) {
-								socket.emit('date', item.time.match(/[0-9]{13}/g));
+								var timestamp = item.time.match(/^[0-9]{10}/g)[0]*1000;
+								var date = new Date(timestamp);
+								selectObject[item.time.match(/[0-9]{13}/g)]=date.toLocaleString();
+								socket.emit('date', selectObject);
+								selectObject = {}
 							}
 						});
 					}
