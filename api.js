@@ -95,12 +95,12 @@ var io = require("socket.io").listen(app);
 
 io.sockets.on('connection', function (socket){
 
-	socket.on('searchMongo', function (email){
+	socket.on('searchMongo', async function (email){
 
 		MongoClient.connect(process.env.MONGODB_URI, function(err, client) {
 			if(err) throw err;
 			const db = client.db(process.env.MONGODB_DATABASE);
-			await db.listCollections().toArray(async function(err, coll){
+			db.listCollections().toArray(function(err, coll){
 				var selectObject = {};
 
 				coll.sort((a, b) => a.name - b.name)
