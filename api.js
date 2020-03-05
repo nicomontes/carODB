@@ -121,7 +121,7 @@ io.sockets.on('connection', function (socket){
 						});
 					}
 				}
-
+				console.log(selectObject)
 				socket.emit('date', selectObject);
 			});
 
