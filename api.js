@@ -114,9 +114,14 @@ io.sockets.on('connection', function (socket){
 						var collection = db.collection(coll[i].name);
 						return new Promise((resolve, reject) => {
 							collection.findOne({}, {email:1}, function(err, item) {
-								if (item.email == email) {
-									console.log("---")
-									//socket.emit('date', collId.match(/[0-9]{13}/g));
+								if (!err) {
+									if (item.email == email) {
+										console.log("---")
+										//socket.emit('date', collId.match(/[0-9]{13}/g));
+									}
+									resolve(item);
+								} else {
+									reject(err);
 								}
 							});
 						});
