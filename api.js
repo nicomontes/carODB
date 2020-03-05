@@ -116,7 +116,7 @@ io.sockets.on('connection', function (socket){
 								var timestamp = item.time.match(/^[0-9]{10}/g)[0]*1000;
 								var date = new Date(timestamp);
 								selectObject[item.time.match(/[0-9]{13}/g)]=date.toLocaleString();
-								socket.emit('date', selectObject);
+								socket.emit('date', item.time.match(/[0-9]{13}/g));
 								selectObject = {}
 							}
 						});
