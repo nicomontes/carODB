@@ -109,14 +109,14 @@ io.sockets.on('connection', function (socket){
 
 				for (var i=0;i<coll.length;i++)
 				{
-					collId = coll[i].name.match(/[0-9]{13}/g)[0]
-					if (coll[i].name.match(/[0-9]{13}/g) != null) {
+					collId = coll[i].name
+					if (collId.match(/[0-9]{13}/g) != null) {
 						var collection = db.collection(collId);
 						collection.findOne({}, {email:1}, function(err, item) {
 							if (item.email == email) {
 								var timestamp = collId.match(/^[0-9]{10}/g)[0]*1000;
 								var date = new Date(timestamp);
-								selectObject[collId]=date.toLocaleString();
+								selectObject[collId.match(/[0-9]{13}/g)]=date.toLocaleString();
 								socket.emit('date', selectObject);
 								selectObject = {}
 							}
