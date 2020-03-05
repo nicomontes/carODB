@@ -434,8 +434,6 @@ function sendEmail() {
   socket.emit('searchMongo', $('#email')[0].value)
   socket.on('date', function (data){
     var select = document.getElementById("select");
-    var date = new Date(index.match(/^[0-9]{10}/g)[0]*1000);
-    select.options[select.options.length] = new Option(date.toLocaleString(), index);
     for(index in data) {
       var date = new Date(index.match(/^[0-9]{10}/g)[0]*1000);
       select.options[select.options.length] = new Option(date.toLocaleString(), index);
