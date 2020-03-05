@@ -114,9 +114,9 @@ io.sockets.on('connection', function (socket){
 						collection.findOne({}, {email:1}, function(err, item) {
 							console.log(item)
 							if (item.email == email) {
-								var timestamp = coll[i].name.match(/[0-9]{13}/g)[0].match(/^[0-9]{10}/g)[0]*1000;
+								var timestamp = item.time.match(/[0-9]{13}/g)[0].match(/^[0-9]{10}/g)[0]*1000;
 								var date = new Date(timestamp);
-								selectObject[coll[i].name.match(/[0-9]{13}/g)]=date.toLocaleString();
+								selectObject[item.time.match(/[0-9]{13}/g)]=date.toLocaleString();
 							}
 						});
 					}
