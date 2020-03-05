@@ -113,7 +113,7 @@ io.sockets.on('connection', function (socket){
 						var collection = db.collection(coll[i].name);
 						await collection.findOne({}, {email:1}, function(err, item) {
 							if (item.email == email) {
-								socket.emit('date', collId.match(/[0-9]{13}/g));
+								//socket.emit('date', collId.match(/[0-9]{13}/g));
 							}
 						});
 					}
