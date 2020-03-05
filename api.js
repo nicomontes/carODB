@@ -109,6 +109,7 @@ io.sockets.on('connection', function (socket){
 				{
 					if (coll[i].name.match(/[0-9]{13}/g) != null) {
 						collId = coll[i].name
+						console.log(collId)
 						socket.emit('date', coll[i].name.match(/[0-9]{13}/g));
 						var collection = db.collection(coll[i].name);
 						var res = await collection.findOne({}, {email:1}, function(err, item) {
