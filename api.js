@@ -114,9 +114,6 @@ io.sockets.on('connection', function (socket){
 						var collection = db.collection(coll[i].name);
 						collection.findOne({}, {email:1}, function(err, item) {
 							if (item.email == email) {
-								var timestamp = collId.match(/[0-9]{13}/g)[0].match(/^[0-9]{10}/g)[0]*1000;
-								var date = new Date(timestamp);
-								selectObject[collId.match(/[0-9]{13}/g)]=date.toLocaleString();
 								socket.emit('date', collId.match(/[0-9]{13}/g));
 							}
 						});
